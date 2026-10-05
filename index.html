@@ -6,14 +6,14 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; font-src data:; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Salintel</title>
-<meta name="description" content="Belgian family office investing in funds and co-investments.">
+<meta name="description" content="Belgian family office investing across private market funds and co-investment opportunities.">
 <meta property="og:title" content="Salintel">
-<meta property="og:description" content="Belgian family office investing in funds and co-investments.">
+<meta property="og:description" content="Belgian family office investing across private market funds and co-investment opportunities.">
 <meta property="og:url" content="https://salintel.be/">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#E6E8E1">
 <link rel="canonical" href="https://salintel.be/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Salintel","url":"https://salintel.be/","description":"Belgian family office investing in funds and co-investments."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Salintel","url":"https://salintel.be/","description":"Belgian family office investing across private market funds and co-investment opportunities."}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E6E8E1'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%2314233B' stroke-width='3'/%3E%3Crect x='17' y='9' width='4' height='4' fill='%239E6F24'/%3E%3C/svg%3E">
 <script>document.documentElement.classList.add('js')</script>
 <style>
@@ -67,7 +67,7 @@ h1{margin:0;font-size:44px;line-height:44px;font-weight:400}
   </div>
 
   <section class="intro reveal">
-    <p>Belgian family office investing in funds and co-investments.</p>
+    <p>Belgian family office investing across private market funds and co-investment opportunities.</p>
     <div class="cta" data-nosnippet>
       <a class="contact" id="contact" href="#">Contact</a>
       <p class="note" id="contact-status" role="status" aria-live="polite"></p>
@@ -114,7 +114,7 @@ h1{margin:0;font-size:44px;line-height:44px;font-weight:400}
   const SHADE = ['\u2591', '\u2592', '\u2593', '\u2588'];
   const Lx = -0.5, Ly = 0.55, Lz = 0.67;           /* light from upper left */
   const ANT = { lat: 51.22 * RAD, lon: 4.40 * RAD };
-  const PITCH = 22 * RAD, SPIN = 5 * RAD;           /* north tilted toward viewer, 5 deg/s */
+  const PITCH = 22 * RAD, SPIN = reduce ? 1.7 * RAD : 5 * RAD;
   let ink, dim, brass, paper, faint;
   let W = 0, H = 0, dpr = 1, cols = 0, rows = 0, ox = 0, oy = 0, ccol = 0, crow = 0, rx = 1, ry = 1, Rpx = 1;
 
@@ -225,7 +225,6 @@ h1{margin:0;font-size:44px;line-height:44px;font-weight:400}
   }
 
   cvs.addEventListener('pointerdown', e => {
-    if (reduce) return;
     drag = { x: e.clientX, y: e.clientY, t: performance.now() };
     cvs.setPointerCapture(e.pointerId); cvs.classList.add('dragging');
   });
@@ -244,8 +243,7 @@ h1{margin:0;font-size:44px;line-height:44px;font-weight:400}
   const start = () => {
     resize();
     new ResizeObserver(() => { resize(); if (reduce) draw(-4.4 * RAD, PITCH, 1, true); }).observe(wrap);
-    if (reduce) { finishBoot(); draw(-4.4 * RAD, PITCH, 1, true); return; }
-    status.setAttribute('aria-hidden', 'true');
+    if (reduce) { finishBoot(); draw(-4.4 * RAD, PITCH, 1, true); }
     t0 = last = performance.now();
     requestAnimationFrame(frame);
   };
